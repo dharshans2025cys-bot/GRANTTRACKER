@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GrantTrack | Research Grant Management</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="brand-icon">G</div>
+
+        <div>
+            <h2>GrantTrack</h2>
+            <span>Research Management</span>
+        </div>
+    </div>
+
+    <nav class="navigation">
+
+        <a href="#dashboard" class="nav-link active">
+            <span>▦</span>
+            Dashboard
+        </a>
+
+        <a href="#applications" class="nav-link">
+            <span>▤</span>
+            Applications
+        </a>
+
+        <a href="#stages" class="nav-link">
+            <span>↻</span>
+            Review Stages
+        </a>
+
+        <a href="#expenditure" class="nav-link">
+            <span>₹</span>
+            Expenditure
+        </a>
+
+        <a href="#deadlines" class="nav-link">
+            <span>◷</span>
+            Deadlines
+        </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+        <div class="user-card">
+            <div class="avatar">DR</div>
+
+            <div>
+                <strong>Faculty Research</strong>
+                <small>Administrator</small>
+            </div>
+        </div>
+    </div>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+        <div>
+            <p class="breadcrumb">Research / Grant Management</p>
+            <h1>Grant Dashboard</h1>
+        </div>
+
+        <div class="topbar-actions">
+
+            <button class="notification-button">
+                🔔
+                <span class="notification-dot"></span>
+            </button>
+
+            <button class="profile-button">
+                DR
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+    <section id="dashboard">
+
+        <div class="welcome-card">
+
+            <div>
+                <span class="eyebrow">RESEARCH GRANT TRACKER</span>
+
+                <h2>
+                    Manage every grant application
+                    <br>
+                    from submission to funding.
+                </h2>
+
+                <p>
+                    Track review stages, committee remarks,
+                    expenditure and important deadlines from one place.
+                </p>
+            </div>
+
+            <div class="welcome-graphic">
+                <div class="circle circle-one"></div>
+                <div class="circle circle-two"></div>
+                <span>₹</span>
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon blue">▤</div>
+
+                <div>
+                    <span>Total Applications</span>
+                    <strong id="totalApplications">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon orange">↻</div>
+
+                <div>
+                    <span>Under Review</span>
+                    <strong id="reviewApplications">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">✓</div>
+
+                <div>
+                    <span>Approved Grants</span>
+                    <strong id="approvedApplications">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon red">₹</div>
+
+                <div>
+                    <span>Total Utilized</span>
+                    <strong id="totalExpenditure">₹0</strong>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- APPLICATION SECTION -->
+    <section id="applications" class="section">
+
+        <div class="section-header">
+
+            <div>
+                <span class="section-label">GRANT MANAGEMENT</span>
+                <h2>Grant Applications</h2>
+                <p>Submit and monitor research grant applications.</p>
+            </div>
+
+            <button class="primary-button" onclick="openApplicationModal()">
+                + New Application
+            </button>
+
+        </div>
+
+
+        <div class="table-card">
+
+            <div class="table-toolbar">
+
+                <div class="search-box">
+                    🔍
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search applications..."
+                        onkeyup="filterApplications()"
+                    >
+                </div>
+
+                <select id="statusFilter" onchange="filterApplications()">
+                    <option value="ALL">All Status</option>
+                    <option value="SUBMITTED">Submitted</option>
+                    <option value="UNDER_REVIEW">Under Review</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="REJECTED">Rejected</option>
+                </select>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Application</th>
+                            <th>Faculty</th>
+                            <th>Requested Amount</th>
+                            <th>Status</th>
+                            <th>Submitted</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="applicationTableBody">
+
+                        <tr>
+                            <td colspan="7" class="empty-state">
+                                Loading applications...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- REVIEW STAGES -->
+    <section id="stages" class="section">
+
+        <div class="section-header">
+
+            <div>
+                <span class="section-label">WORKFLOW</span>
+                <h2>Review Stages</h2>
+                <p>Track the progress of each grant through the review process.</p>
+            </div>
+
+        </div>
+
+
+        <div class="workflow-card">
+
+            <div class="workflow-step completed">
+                <div class="step-number">1</div>
+                <strong>Submitted</strong>
+                <span>Application received</span>
+            </div>
+
+            <div class="workflow-line"></div>
+
+            <div class="workflow-step active-step">
+                <div class="step-number">2</div>
+                <strong>Under Review</strong>
+                <span>Committee evaluation</span>
+            </div>
+
+            <div class="workflow-line"></div>
+
+            <div class="workflow-step">
+                <div class="step-number">3</div>
+                <strong>Decision</strong>
+                <span>Approval / rejection</span>
+            </div>
+
+            <div class="workflow-line"></div>
+
+            <div class="workflow-step">
+                <div class="step-number">4</div>
+                <strong>Funding</strong>
+                <span>Grant utilization</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXPENDITURE -->
+    <section id="expenditure" class="section">
+
+        <div class="section-header">
+
+            <div>
+                <span class="section-label">BUDGET UTILIZATION</span>
+                <h2>Expenditure Tracking</h2>
+                <p>Monitor spending against approved grant budgets.</p>
+            </div>
+
+            <button class="primary-button" onclick="openExpenditureModal()">
+                + Log Expenditure
+            </button>
+
+        </div>
+
+
+        <div class="budget-grid">
+
+            <div class="budget-card">
+
+                <div class="budget-header">
+                    <span>Approved Budget</span>
+                    <span class="budget-icon">₹</span>
+                </div>
+
+                <h3 id="approvedBudget">₹0</h3>
+
+                <div class="progress">
+                    <div id="budgetProgress" class="progress-bar"></div>
+                </div>
+
+                <div class="budget-footer">
+                    <span id="spentAmount">₹0 spent</span>
+                    <span id="remainingAmount">₹0 remaining</span>
+                </div>
+
+            </div>
+
+
+            <div class="deadline-card">
+
+                <div class="deadline-icon">◷</div>
+
+                <div>
+                    <span>Utilization Deadline</span>
+                    <h3 id="nearestDeadline">No upcoming deadline</h3>
+                    <p>Applications nearing their deadline will appear here.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DEADLINES -->
+    <section id="deadlines" class="section">
+
+        <div class="section-header">
+
+            <div>
+                <span class="section-label">DEADLINE MONITOR</span>
+                <h2>Upcoming Deadlines</h2>
+                <p>Keep track of grants that require attention.</p>
+            </div>
+
+        </div>
+
+        <div id="deadlineContainer" class="deadline-list">
+
+            <div class="empty-state">
+                No deadline information available.
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- APPLICATION MODAL -->
+<div id="applicationModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <div>
+                <span class="section-label">NEW GRANT</span>
+                <h2>Submit Application</h2>
+            </div>
+
+            <button onclick="closeApplicationModal()">×</button>
+        </div>
+
+
+        <form id="applicationForm">
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+                    <label>Grant Title</label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Enter research grant title"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Faculty Name</label>
+
+                    <input
+                        type="text"
+                        id="facultyName"
+                        placeholder="Faculty name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Requested Amount</label>
+
+                    <input
+                        type="number"
+                        id="requestedAmount"
+                        min="1"
+                        placeholder="₹ 0"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>Abstract</label>
+
+                    <textarea
+                        id="abstractText"
+                        rows="5"
+                        placeholder="Describe your research proposal..."
+                        required
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="closeApplicationModal()">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-button">
+                    Submit Application
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- EXPENDITURE MODAL -->
+<div id="expenditureModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="section-label">BUDGET</span>
+                <h2>Log Expenditure</h2>
+            </div>
+
+            <button onclick="closeExpenditureModal()">×</button>
+
+        </div>
+
+
+        <form id="expenditureForm">
+
+            <div class="form-group">
+
+                <label>Application ID</label>
+
+                <input
+                    type="number"
+                    id="expenditureApplicationId"
+                    min="1"
+                    placeholder="Application ID"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Amount</label>
+
+                <input
+                    type="number"
+                    id="expenditureAmount"
+                    min="1"
+                    placeholder="₹ 0"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    id="expenditureDescription"
+                    rows="4"
+                    placeholder="What was this expenditure for?"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="closeExpenditureModal()">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-button">
+                    Save Expenditure
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

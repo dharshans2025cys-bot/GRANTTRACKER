@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>GrantTrack | Department Management</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div>
+            <h1>GrantTrack</h1>
+            <p>Department Grant Management Portal</p>
+        </div>
+
+        <div class="admin-badge">
+            DEPARTMENT ADMIN
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <!-- DASHBOARD CARDS -->
+
+        <section class="dashboard-cards">
+
+            <div class="card">
+                <span>Total Applications</span>
+                <strong id="totalApplications">0</strong>
+            </div>
+
+            <div class="card pending">
+                <span>Pending Review</span>
+                <strong id="pendingApplications">0</strong>
+            </div>
+
+            <div class="card approved">
+                <span>Approved</span>
+                <strong id="approvedApplications">0</strong>
+            </div>
+
+            <div class="card rejected">
+                <span>Rejected</span>
+                <strong id="rejectedApplications">0</strong>
+            </div>
+
+        </section>
+
+
+        <!-- APPLICATIONS -->
+
+        <section class="applications-section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Grant Applications</h2>
+                    <p>
+                        Review applications submitted by faculty.
+                    </p>
+                </div>
+
+                <button
+                    class="refresh-button"
+                    onclick="loadApplications()">
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Project</th>
+
+                            <th>Faculty</th>
+
+                            <th>Amount</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="applicationTableBody">
+
+                        <tr>
+
+                            <td colspan="6"
+                                class="loading">
+
+                                Loading applications...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- REVIEW MODAL -->
+
+    <div id="reviewModal"
+         class="modal">
+
+        <div class="modal-content">
+
+            <button
+                class="close-button"
+                onclick="closeReviewModal()">
+                ×
+            </button>
+
+            <h2>Application Details</h2>
+
+            <div id="applicationDetails">
+
+                <!-- Details inserted by JavaScript -->
+
+            </div>
+
+
+            <div class="decision-buttons">
+
+                <button
+                    id="approveButton"
+                    class="approve-button">
+                    ✓ Approve
+                </button>
+
+                <button
+                    id="rejectButton"
+                    class="reject-button">
+                    ✕ Reject
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div id="toast"
+         class="toast">
+    </div>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
